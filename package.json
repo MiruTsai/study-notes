@@ -1,0 +1,42 @@
+{
+  "name": "study-notes",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
+  "author": "MiruTsai <zct398@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": " webpack-dev-server --open --hot",
+    "build": " webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "vue": "^2.5.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.4",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiruTsai/study-notes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MiruTsai/study-notes/issues"
+  },
+  "homepage": "https://github.com/MiruTsai/study-notes#readme"
+}
