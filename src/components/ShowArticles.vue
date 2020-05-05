@@ -3,7 +3,6 @@
     <h3>文章列表</h3>
     <template v-for="article in articles">
       <h2 v-on:click="article.show=!article.show">{{article.title}}</h2>
-      <span>{{Date(article.postTime)}}</span>
       <div v-show="article.show">
         <a v-bind:href="article.link" target="_blank">{{article.link}}</a>
         <p>{{article.content}}</p>
@@ -18,13 +17,11 @@ import firebase from "firebase";
 export default {
   data() {
     return {
-      articles: [],      
+      articles: []
     };
   },
   
-  methods: {
-    
-  },
+  methods: {},
   created() {
     firebase.firestore().collection("articles").get().then(article => {      
         article.forEach(doc => {
@@ -34,7 +31,6 @@ export default {
           this.articles.push(x);
         });
       });
-      this.articles = documents      
   }
 };
 </script>

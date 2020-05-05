@@ -2,11 +2,10 @@
   <div>   
     <h1>{{title}}</h1>
     <div class="header">
-     <appNav></appNav>
-      <div>發文</div>
+     <appNav v-on:changeCatlog="updatePage($event)"></appNav>      
     </div>
     <div class="container">
-      <component is="show-articles"></component>      
+      <component v-bind:is="page"></component>
     </div>
     <appFooter></appFooter>
   </div>
@@ -26,7 +25,13 @@ export default {
   },
   data() {
     return {
-      title: "My study notes"      
+      title: "My study notes",
+      page:"show-articles"
+    }
+  },
+  methods:{
+    updatePage:function(currentPage){
+      this.page = currentPage
     }
   }
 }

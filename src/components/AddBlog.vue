@@ -23,6 +23,7 @@
     <div id="preview">
       <h3>預覽</h3>
       <p>標題 : {{blog.title}}</p>
+      <p>連結 : {{blog.link}}</p>
       <p>內文 :</p>
       <p>{{blog.content}}</p>
     </div>
@@ -48,17 +49,14 @@ export default {
         author: "10ZdOhYaxZkxXKPB70AX",
         type:""
       },
-      submitted: false,
-      isSubmit: function() {
-        this.blog.submitted = !this.blog.submitted;
-      }
+      submitted: false      
     };
   },
   methods: {
-    onSubmit(evt) {
+    onSubmit(evt) {      
       evt.preventDefault();
-      firebase.firestore().collection("articles").doc().set(this.blog).then(function() {
-         this.isSubmit();
+      firebase.firestore().collection("articles").doc().set(this.blog).then(()=> {
+         this.submitted = true
         }).catch(function(error) {
           console.error("Error writing document: ", error);
         });      

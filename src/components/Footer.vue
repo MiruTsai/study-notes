@@ -17,6 +17,9 @@ footer{
     text-align: center;
     background-color: #222;
     color:#fff;
-    padding: 50px 0;    
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    padding: 20px 0;
 }
 </style>
