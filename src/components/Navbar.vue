@@ -1,49 +1,64 @@
 <template>
-  <b-breadcrumb>
-    <b-breadcrumb-item v-for="item in items" v-on:click="changeCatlog(item.href)">{{item.text}}</b-breadcrumb-item>
-  </b-breadcrumb>
+  <div>
+    <b-navbar toggleable='lg' type='dark' variant='info'>
+      <b-navbar-brand><router-link to='/' exact>My Study Notes</router-link></b-navbar-brand>
+      <b-collapse id='nav-collapse' is-nav>
+        <b-navbar-nav>
+            <b-nav-item :disabled='!ifLogged'><router-link to='/add' exact>發文</router-link></b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav class='mr-auto'>
+          <b-nav-item-dropdown :disabled='!ifLogged' text='分類' left>
+            <b-dropdown-item v-for='cat in catlog' :key='Math.random()*10000'>{{cat.text}}</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+       
+        <b-navbar-nav class='ml-auto'>
+          <b-nav-form>
+            <b-form-input size='sm' class='mr-sm-2' placeholder='Search'></b-form-input>
+            <b-button size='sm' class='my-2 my-sm-0' type='submit'>Search</b-button>
+          </b-nav-form>
+          <b-nav-item-dropdown right>            
+            <template v-slot:button-content v-show='ifLogged'>
+              User
+            </template>
+            <b-dropdown-item>Profile</b-dropdown-item>
+            <b-dropdown-item v-show='ifLogged'>Sign Out</b-dropdown-item>
+            <b-dropdown-item v-show='!ifLogged'><router-link to='/login' exact>Sign In</router-link></b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 <script>
-import { BNavbar } from 'bootstrap-vue'
-import { BBreadcrumb } from "bootstrap-vue";
+import { BBreadcrumb, BNavbar } from 'bootstrap-vue';
 export default {
+  props: ['catlog','ifLogged'],
   components: {
-    "b-breadcrumb": BBreadcrumb,
+    'b-breadcrumb': BBreadcrumb,
     'b-navbar': BNavbar
   },
   data() {
-    return {
-      // items: [
-      //   { text: "前端", href: "#" },
-      //   { text: "後端", href: "#" },
-      //   {
-      //     text: "UI/UX",
-      //     active: true
-      //   }
-      // ]
-items: [
-        { text: "文章", href: "show-articles" },
-        { text: "發文", href: "addBlog" }
-        
-      ]
-
-    };
+   return{
+    
+   }
   },
   methods:{
-    changeCatlog(catlog){
-      this.$emit('changeCatlog',catlog)
-    }
+   
   }
 };
 </script>
 <style scoped>
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+
+
+.navbar-brand a{
+color:#fff;
 }
-li {
-  margin: 0 10px;
+.nav-link a{  
+  color:rgba(255,255,255,0.5)
 }
+.nav-link a:hover{
+  color:rgba(255,255,255,1)
+}
+
 </style>

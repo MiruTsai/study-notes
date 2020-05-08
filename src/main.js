@@ -3,26 +3,25 @@ import App from './App.vue'
 import firebase from 'firebase'
 import firebaseConfig from './firebase'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-//import VueRouter from 'vue-router'
-import Routes from './route'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-//Vue.use(VueRouter)
+import VueRouter from 'vue-router'
+import Routes from './routes'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+Vue.use(BootstrapVue, IconsPlugin)
 Vue.config.productionTip = false
-
-// const router = new VueRouter({
-//   routes: Routes
-// })
+Vue.use(VueRouter)
+ const router = new VueRouter({
+   routes: Routes,
+   mode:'history'
+    })
 
 firebase.initializeApp(firebaseConfig)
 
 new Vue({
   el: '#app',
-  data:{    
-  },
   render: h => h(App),
-  // router:router
+  router:router
 })
