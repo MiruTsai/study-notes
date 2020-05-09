@@ -1,19 +1,28 @@
 <template>
   <div class="article">
-    <template  v-for="article in articles">
-      <b-card :header="article.cat">        
-      <a :href="article.link">
-      <link-prevue :url="article.link" :key="Math.random()*500000" cardWidth="337px" :showButton=false></link-prevue>
-      </a>
-      <b-card-text>owner: {{article.author}}</b-card-text>
+    <template v-for="article in articles">
+      <b-card>
+        <router-link :to="'/blog/'+article.id">
+          <b-card-header>{{article.cat}}</b-card-header>
+        </router-link>
+        <a :href="article.link">
+          <link-prevue
+            :url="article.link"
+            :key="Math.random()*500000"
+            cardWidth="337px"
+            :showButton="false"
+          ></link-prevue>
+        </a>
+        <b-card-text class="noLink" v-show="!article.link">{{article.title}}</b-card-text>
+        <b-card-text>{{article.author}}</b-card-text>
       </b-card>
     </template>
   </div>
 </template>
 <script>
-import firebase from 'firebase';
-import { BBadge, BCard } from 'bootstrap-vue';
-import LinkPrevue from 'link-prevue'
+import firebase from "firebase";
+import { BBadge, BCard } from "bootstrap-vue";
+import LinkPrevue from "link-prevue";
 export default {
   components: {
     "b-badge": BBadge,
@@ -22,12 +31,12 @@ export default {
   },
   data() {
     return {
-      articles: []      
+      articles: []
     };
   },
-  methods:{
+  methods: {
     onClick(prevue) {
-      window.open(prevue.url , '_blank')
+      window.open(prevue.url, "_blank");
     }
   },
   created() {
@@ -38,63 +47,53 @@ export default {
       .then(article => {
         article.forEach(doc => {
           let x = doc.data();
-          x.id = doc.id;          
+          x.id = doc.id;
           this.articles.push(x);
         });
-      });      
+      });
   }
 };
 </script>
 <style>
-h5 {
-  margin: 20px 0 50px;
-}
-
-.article{
+.article {
+  margin:20px auto;
   column-count: 3;
-  
 }
-.card{
+.article .card {
   margin: 10px;
   align-items: center;
 }
-.card-header{
-  width:100%
+
+.article .card-header {
+  width: 337px;
 }
-.card-body{
-  padding:0;
+.article .card-body {
+  padding: 0;
 }
-.wrapper{
-break-inside: avoid;
-  
+.article .wrapper {
+  break-inside: avoid;
 }
-.badge-info {
-  font-size: 16px;
-  padding: 3px;
-}
-.author {
-  font-size: 14px;
-}
-.wraper{
-  width: 100px;
-}
-.article .card-text{
-  margin:3px;
+.article .card-text {
+  padding: 3px 5px;
   text-align: right;
-  font-size: 12px;
 }
+.article .noLink{
+  text-align: left;
+  padding: 1.25rem;
+}
+
 @media (max-width: 480px) {
   h5 {
-    margin: 10px 0 20px;    
+    margin: 10px 0 20px;
   }
   .article {
     margin: 0;
     padding: 0;
     column-count: 1;
   }
-  .author {
-    font-size: 10px;
+  .article .card {
+    width: 339px;
+    margin: 10px 0;
   }
-
 }
 </style>

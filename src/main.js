@@ -12,6 +12,7 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue, IconsPlugin)
 Vue.config.productionTip = false
+Vue.config.devtools = true
 Vue.use(VueRouter)
  const router = new VueRouter({
    routes: Routes,

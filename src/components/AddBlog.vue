@@ -25,7 +25,7 @@
       <h3>預覽</h3>
       <p>標題 : {{blog.title}}</p>
       <p>連結 : {{blog.link}}</p>
-      <p>內文 :</p>
+      <p>筆記 :</p>
       <p>{{blog.content}}</p>
     </div>
   </div>

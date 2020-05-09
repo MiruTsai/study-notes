@@ -1,13 +1,21 @@
 <template>
-  <div id='blog'>
+  <div id="blog">
     <h1>{{blog.title}}</h1>
-    <a v-bind:href="blog.link">文章連結</a>
-    <article>心得：{{blog.content}}</article>
+    <div class="content">
+      <a :href="blog.link" target="_blank">
+        <link-prevue :url="blog.link" :showButton="false"></link-prevue>
+      </a>
+    </div>    
+    <article>{{blog.content}}</article>
   </div>
 </template>
 <script>
-import firebase from 'firebase';
+import LinkPrevue from "link-prevue";
+import firebase from "firebase";
 export default {
+  components: {
+    LinkPrevue
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -17,7 +25,7 @@ export default {
   created() {
     firebase
       .firestore()
-      .collection('articles')
+      .collection("articles")
       .doc(this.id)
       .get()
       .then(doc => {
@@ -26,3 +34,16 @@ export default {
   }
 };
 </script>
+<style scoped>
+#blog {
+  text-align: center;
+}
+#blog h1 {
+  margin: 20px auto;
+}
+#blog .content {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+</style>
