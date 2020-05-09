@@ -1,68 +1,100 @@
 <template>
-  <div class='article'>
-    <h5>文章列表</h5>
-    <template v-for='article in articles'>
-    <router-link v-bind:to="'/blog/'+ article.id"> 
-    <h3 v-on:click='article.show=!article.show'>
-        {{article.title}}
-        <span>
-          <b-badge variant='info'>{{article.cat}}</b-badge>
-        </span>
-      </h3>    
-      </router-link>
-        <span>Author: {{article.author}}</span>
-      <div v-show='article.show'>
-        <a v-bind:href='article.link' target='_blank'>{{article.link}}</a>
-        <p>{{article.content}}</p>
-      </div>
-      <hr />
+  <div class="article">
+    <template  v-for="article in articles">
+      <b-card :header="article.cat">        
+      <a :href="article.link">
+      <link-prevue :url="article.link" :key="Math.random()*500000" cardWidth="337px" :showButton=false></link-prevue>
+      </a>
+      <b-card-text>owner: {{article.author}}</b-card-text>
+      </b-card>
     </template>
   </div>
 </template>
-
 <script>
 import firebase from 'firebase';
-import { BBadge } from 'bootstrap-vue';
-
+import { BBadge, BCard } from 'bootstrap-vue';
+import LinkPrevue from 'link-prevue'
 export default {
-  
   components: {
-    'b-badge': BBadge
+    "b-badge": BBadge,
+    "b-card": BCard,
+    LinkPrevue
   },
-  data(){
-    return{
-      articles:[],
+  data() {
+    return {
+      articles: []      
+    };
+  },
+  methods:{
+    onClick(prevue) {
+      window.open(prevue.url , '_blank')
     }
   },
-  created(){
-    firebase.firestore().collection('articles').get().then(article => {      
+  created() {
+    firebase
+      .firestore()
+      .collection("articles")
+      .get()
+      .then(article => {
         article.forEach(doc => {
           let x = doc.data();
-          x.id = doc.id;
-          x.show = false;          
+          x.id = doc.id;          
           this.articles.push(x);
         });
-      });
+      });      
   }
 };
-
 </script>
 <style>
-
-
 h5 {
   margin: 20px 0 50px;
 }
-.article {
-  margin: 10px 0;
-  padding: 20px;
+
+.article{
+  column-count: 3;
+  
 }
-.article span {
+.card{
+  margin: 10px;
+  align-items: center;
+}
+.card-header{
+  width:100%
+}
+.card-body{
+  padding:0;
+}
+.wrapper{
+break-inside: avoid;
+  
+}
+.badge-info {
   font-size: 16px;
   padding: 3px;
 }
-hr {
-  color: #ccc;
-  margin: 20px 0;
+.author {
+  font-size: 14px;
+}
+.wraper{
+  width: 100px;
+}
+.article .card-text{
+  margin:3px;
+  text-align: right;
+  font-size: 12px;
+}
+@media (max-width: 480px) {
+  h5 {
+    margin: 10px 0 20px;    
+  }
+  .article {
+    margin: 0;
+    padding: 0;
+    column-count: 1;
+  }
+  .author {
+    font-size: 10px;
+  }
+
 }
 </style>

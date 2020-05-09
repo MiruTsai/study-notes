@@ -173,6 +173,7 @@ button {
 @media (max-width: 480px) {
   .login {
     width: 100%;
+    margin: 20px auto;
   }
   button {
     width: 100%;

@@ -4,19 +4,16 @@
     <div class='container'>
       <router-view v-bind:catlog='user.catlog' v-on:login='updateLoginStatus($event)' v-bind:user='user'></router-view>
     </div>
-    <appFooter></appFooter>
+   
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import firebase from 'firebase';
 export default {
   components: {
-    appNav: Navbar,
-    appFooter: Footer,
-    
+    appNav: Navbar    
   },
   data() {
     return {

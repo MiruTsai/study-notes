@@ -1,8 +1,8 @@
 <template>
   <div id='blog'>
     <h1>{{blog.title}}</h1>
-    <a>{{blog.link}}</a>
-    <article>{{blog.content}}</article>
+    <a v-bind:href="blog.link">文章連結</a>
+    <article>心得：{{blog.content}}</article>
   </div>
 </template>
 <script>
