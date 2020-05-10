@@ -10,7 +10,8 @@
     </b-navbar-nav>
     <b-navbar-nav class="mr-auto">
       <b-nav-item-dropdown :disabled="!ifLogged" text="分類" left>
-        <b-dropdown-item v-for="cat in catlog" :key="Math.random()*10000">{{cat.text}}</b-dropdown-item>
+        <b-dropdown-item v-for="cat in catlog" :key="Math.random()*10000" v-on:click="changeCatlog(cat.text)">{{cat.text}}</b-dropdown-item>
+        <b-dropdown-item v-on:click="changeCatlog('all')">all</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto userDropDown">
@@ -43,9 +44,9 @@ export default {
         .then(function() {
           alert("您已成功登出");
         })
-        .catch(function(error) {
-          // An error happened.
-        })
+    },
+    changeCatlog(value){
+      this.$emit('changeCatlog',value)
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="article">
-    <template v-for="article in articles">
+    <template v-for="article in chooseCatlog">
       <b-card>
         <router-link :to="'/blog/'+article.id">
           <b-card-header>{{article.cat}}</b-card-header>
@@ -24,6 +24,7 @@ import firebase from "firebase";
 import { BBadge, BCard } from "bootstrap-vue";
 import LinkPrevue from "link-prevue";
 export default {
+  props: ["catlog", "ifLogged"],
   components: {
     "b-badge": BBadge,
     "b-card": BCard,
@@ -37,6 +38,19 @@ export default {
   methods: {
     onClick(prevue) {
       window.open(prevue.url, "_blank");
+    }
+  },
+  computed: {
+    chooseCatlog() {
+      return this.articles.filter(article => {
+        if (this.catlog === "all") {
+          
+          return article;
+        } else {
+          
+          return article.cat === this.catlog;
+        }
+      });
     }
   },
   created() {
@@ -56,7 +70,7 @@ export default {
 </script>
 <style>
 .article {
-  margin:20px auto;
+  margin: 20px auto;
   column-count: 3;
 }
 .article .card {
@@ -77,7 +91,7 @@ export default {
   padding: 3px 5px;
   text-align: right;
 }
-.article .noLink{
+.article .noLink {
   text-align: left;
   padding: 1.25rem;
 }

@@ -14,15 +14,17 @@ Vue.use(BootstrapVue, IconsPlugin)
 Vue.config.productionTip = false
 Vue.config.devtools = true
 Vue.use(VueRouter)
- const router = new VueRouter({
-   routes: Routes,
-   mode:'history'
-    })
+const router = new VueRouter({
+  routes: Routes,
+  mode: 'history'
+})
 
 firebase.initializeApp(firebaseConfig)
+
+
 
 new Vue({
   el: '#app',
   render: h => h(App),
-  router:router
+  router: router
 })

@@ -125,6 +125,8 @@ export default {
               { text: "Third Party", value: "cat3" }
             ]
           });
+        }).then(()=>{
+          this.$router.push('/')
         })
         .catch(function(error) {
           console.log(error.message);
@@ -173,8 +175,9 @@ export default {
               catlog: info.catlog
             });
           } else {
-            this.createMember(user);
+            this.createMember(user)            
           }
+          this.$router.push('/')
         });
     },
     createMember(user) {

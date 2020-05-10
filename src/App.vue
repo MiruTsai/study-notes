@@ -1,46 +1,58 @@
 <template>
   <div>
-    <appNav v-bind:catlog='user.catlog' v-bind:ifLogged='ifLogged'></appNav>
-    <div class='container'>
-      <router-view v-bind:catlog='user.catlog' v-on:login='updateLoginStatus($event)' v-bind:user='user'></router-view>
+    <appNav
+      v-bind:catlog="user.catlog"
+      v-bind:ifLogged="ifLogged"
+      v-on:changeCatlog="updateCatlog($event)"
+    ></appNav>
+    <div class="container">
+      <router-view v-bind:catlog="catlog"
+      v-bind:userCatlog="user.catlog"
+        v-bind:ifLogged="ifLogged"
+        v-on:login="updateLoginStatus($event)"
+        v-bind:user="user"
+      ></router-view>
     </div>
-   
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar';
-import firebase from 'firebase';
+import Navbar from "./components/Navbar";
+import firebase from "firebase";
 export default {
   components: {
-    appNav: Navbar    
+    appNav: Navbar
   },
   data() {
     return {
-      user: {},      
-      ifLogged:false
+      user: {},
+      ifLogged: false,
+      catlog: "all"
     };
   },
   methods: {
-    updateLoginStatus(value){
-      this.ifLogged = true
-      this.user = value
+    updateLoginStatus(value) {
+      this.ifLogged = true;
+      this.user = value;
+    },
+    updateCatlog(value) {
+      this.catlog = value;
     }
-  },  
+  }
 };
 </script>
 <style>
 * {
-  font-family:'Noto Sans TC', '微軟正黑體', '新細明體', arial, sans-serif;    
+  font-family: "Noto Sans TC", "微軟正黑體", "新細明體", arial, sans-serif;
   box-sizing: border-box;
   margin: 0;
   text-decoration: none;
 }
-a{
+a {
   text-decoration: none;
-  color:black;
+  color: black;
 }
-a:hover{
+a:hover {
   text-decoration: none;
 }
 </style>
