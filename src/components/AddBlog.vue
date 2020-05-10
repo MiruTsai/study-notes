@@ -49,7 +49,7 @@ export default {
         author: this.user.name,
         authorID: this.user.userID,
         cat: "",
-        preview: {}
+        postTime: new Date().toLocaleDateString("zh-Hans-TW")
       },
       submitted: false
     };

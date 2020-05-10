@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand>
-      <router-link to="/" exact>My Study Notes</router-link>
+      <router-link to="/" exact>Study Notes</router-link>
     </b-navbar-brand>
     <b-navbar-nav>
       <b-nav-item :disabled="!ifLogged">

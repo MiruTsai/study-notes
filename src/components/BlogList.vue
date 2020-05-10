@@ -2,9 +2,11 @@
   <div class="article">
     <template v-for="article in chooseCatlog">
       <b-card>
-        <router-link :to="'/blog/'+article.id">
-          <b-card-header>{{article.cat}}</b-card-header>
-        </router-link>
+        <b-card-header>
+          <router-link :to="'/blog/'+article.id">{{article.cat}}</router-link>
+          <span class="postTime">{{article.postTime}}</span>
+        </b-card-header>
+
         <a :href="article.link">
           <link-prevue
             :url="article.link"
@@ -44,10 +46,8 @@ export default {
     chooseCatlog() {
       return this.articles.filter(article => {
         if (this.catlog === "all") {
-          
           return article;
         } else {
-          
           return article.cat === this.catlog;
         }
       });
@@ -63,6 +63,11 @@ export default {
           let x = doc.data();
           x.id = doc.id;
           this.articles.push(x);
+        });
+        this.articles.sort(function(a, b) {
+          a = Date.parse(a.postTime).valueOf();
+          b = Date.parse(b.postTime).valueOf();
+          return b - a;
         });
       });
   }
@@ -80,6 +85,12 @@ export default {
 
 .article .card-header {
   width: 337px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.article .card-header .postTime {
+  font-size: 12px;
 }
 .article .card-body {
   padding: 0;

@@ -122,7 +122,8 @@ export default {
               { text: "JavaScript", value: "cat0" },
               { text: "Frameworks", value: "cat1" },
               { text: "UI / UX", value: "cat2" },
-              { text: "Third Party", value: "cat3" }
+              { text: "Third Party", value: "cat3" },
+              { text: "Other", value: "cat99" }
             ]
           });
         }).then(()=>{
@@ -130,6 +131,13 @@ export default {
         })
         .catch(function(error) {
           console.log(error.message);
+          if(error.message === "Password should be at least 6 characters"){
+            alert("密碼須至少六位數")
+            return
+          }else if(error.message === "The email address is badly formatted."){
+            alert("請輸入正確 e-mail")
+            return 
+          }
         });
     },
     signIn() {
@@ -174,13 +182,14 @@ export default {
               userID: info.userID,
               catlog: info.catlog
             });
-          } else {
-            this.createMember(user)            
+          } else {            
+            this.createMember(user)
           }
           this.$router.push('/')
         });
     },
     createMember(user) {
+      firebase.auth().currentUser.sendEmailVerification()
       firebase
         .firestore()
         .collection("member")
