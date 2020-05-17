@@ -1,25 +1,25 @@
-var path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+var path = require("path")
+const VueLoaderPlugin = require("vue-loader/lib/plugin")
 
 module.exports = {  
-  mode: 'production',
-  entry: './src/main.js',
+  mode: "production",
+  entry: "./src/main.js",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "/dist/",
+    filename: "build.js"
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          'vue-style-loader',
-          'css-loader'
+          "vue-style-loader",
+          "css-loader"
         ],
       },      {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: "vue-loader",
         options: {
           loaders: {
           }          
@@ -27,14 +27,14 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: '[name].[ext]?[hash]'
+          name: "[name].[ext]?[hash]"
         }
       }
     ]
@@ -44,9 +44,9 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      "vue$": "vue/dist/vue.esm.js"
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ["*", ".js", ".vue", ".json"]
   },
   devServer: {
     historyApiFallback: true,
@@ -56,5 +56,5 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: "#eval-source-map"
 }

@@ -10,7 +10,11 @@
     </b-navbar-nav>
     <b-navbar-nav class="mr-auto">
       <b-nav-item-dropdown :disabled="!ifLogged" text="分類" left>
-        <b-dropdown-item v-for="cat in catlog" :key="Math.random()*10000" v-on:click="changeCatlog(cat.text)">{{cat.text}}</b-dropdown-item>
+        <b-dropdown-item
+          v-for="cat in catlog"
+          :key="Math.random()*10000"
+          v-on:click="changeCatlog(cat.text)"
+        >{{cat.text}}</b-dropdown-item>
         <b-dropdown-item v-on:click="changeCatlog('all')">all</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
@@ -26,15 +30,11 @@
   </b-navbar>
 </template>
 <script>
-import { BBreadcrumb, BNavbar } from "bootstrap-vue"
+import { BBreadcrumb, BNavbar } from "bootstrap-vue";
 export default {
-  props: ["catlog", "ifLogged"],
   components: {
     "b-breadcrumb": BBreadcrumb,
     "b-navbar": BNavbar
-  },
-  data() {
-    return {};
   },
   methods: {
     signOut() {
@@ -43,10 +43,18 @@ export default {
         .signOut()
         .then(function() {
           alert("您已成功登出");
-        })
+        });
     },
-    changeCatlog(value){
-      this.$emit('changeCatlog',value)
+    changeCatlog(value) {
+      this.$emit('changeCatlog',value);
+    }
+  },
+  computed:{
+    ifLogged(){
+      return this.$store.state.user.login
+    },
+    catlog(){
+      return this.$store.state.user.catlog
     }
   }
 };
@@ -55,7 +63,7 @@ export default {
 .navbar-brand a {
   color: #fff;
 }
-.navbar-brand a:hover{
+.navbar-brand a:hover {
   text-decoration: none;
 }
 .nav-link a {

@@ -111,23 +111,11 @@ export default {
               { text: "Third Party", value: "cat3" }
             ]
           };
+          this.$store.dispatch("login",obj)
           this.createMember(obj);
         })
-        .then(() => {
-          this.$emit("login", {
-            name: this.user.name,
-            email: this.user.email,
-            userID: firebase.auth().currentUser.uid,
-            catlog: [
-              { text: "JavaScript", value: "cat0" },
-              { text: "Frameworks", value: "cat1" },
-              { text: "UI / UX", value: "cat2" },
-              { text: "Third Party", value: "cat3" },
-              { text: "Other", value: "cat99" }
-            ]
-          });
-        }).then(()=>{
-          this.$router.push('/')
+        .then(()=>{
+          this.$router.push("/")
         })
         .catch(function(error) {
           console.log(error.message);
@@ -176,16 +164,11 @@ export default {
         .then(doc => {
           if (doc.exists) {
             let info = doc.data();
-            this.$emit("login", {
-              name: info.name,
-              email: info.email,
-              userID: info.userID,
-              catlog: info.catlog
-            });
+            this.$store.dispatch("login",info)
           } else {            
             this.createMember(user)
           }
-          this.$router.push('/')
+          this.$router.push("/")
         });
     },
     createMember(user) {
@@ -201,12 +184,7 @@ export default {
           catlog: user.catlog
         })
         .then(() => {
-          this.$emit("login", {
-            name: user.displayName,
-            email: user.email,
-            userID: user.uid,
-            catlog: user.catlog
-          });
+          this.$store.dispatch("login",user)
         });
     }
   }

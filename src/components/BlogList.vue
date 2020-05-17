@@ -1,12 +1,11 @@
 <template>
   <div class="article">
-    <template v-for="article in chooseCatlog">
+    <template v-for="article in filterArticles">
       <b-card>
         <b-card-header>
           <router-link :to="'/blog/'+article.id">{{article.cat}}</router-link>
           <span class="postTime">{{article.postTime}}</span>
         </b-card-header>
-
         <a :href="article.link">
           <link-prevue
             :url="article.link"
@@ -26,25 +25,19 @@ import firebase from "firebase";
 import { BBadge, BCard } from "bootstrap-vue";
 import LinkPrevue from "link-prevue";
 export default {
-  props: ["catlog", "ifLogged"],
+  props: ["catlog"],
   components: {
     "b-badge": BBadge,
     "b-card": BCard,
     LinkPrevue
   },
-  data() {
-    return {
-      articles: []
-    };
-  },
-  methods: {
+  computed: {
     onClick(prevue) {
       window.open(prevue.url, "_blank");
-    }
-  },
-  computed: {
-    chooseCatlog() {
-      return this.articles.filter(article => {
+    },
+    filterArticles() {
+      let articles = this.$store.state.articles;
+      return articles.filter(article => {
         if (this.catlog === "all") {
           return article;
         } else {
@@ -53,27 +46,21 @@ export default {
       });
     }
   },
-  created() {
-    firebase
-      .firestore()
-      .collection("articles")
-      .get()
-      .then(article => {
-        article.forEach(doc => {
-          let x = doc.data();
-          x.id = doc.id;
-          this.articles.push(x);
-        });
-        this.articles.sort(function(a, b) {
-          a = Date.parse(a.postTime).valueOf();
-          b = Date.parse(b.postTime).valueOf();
-          return b - a;
-        });
-      });
+  mounted() {
+    this.$store.dispatch("getArticles");
+  },
+  destroyed() {
+    this.$store.dispatch("clearArticles");
   }
 };
 </script>
 <style>
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+}
 .article {
   margin: 20px auto;
   column-count: 3;
@@ -82,7 +69,6 @@ export default {
   margin: 10px;
   align-items: center;
 }
-
 .article .card-header {
   width: 337px;
   display: flex;

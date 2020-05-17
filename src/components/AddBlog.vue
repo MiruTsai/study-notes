@@ -34,7 +34,6 @@ import firebase from "firebase";
 import { BForm, BButton } from "bootstrap-vue";
 import LinkPrevue from "link-prevue";
 export default {
-  props: ["user", "userCatlog"],
   components: {
     "b-form": BForm,
     "b-button": BButton,
@@ -42,12 +41,13 @@ export default {
   },
   data() {
     return {
+      userCatlog:this.$store.state.user.catlog,
       blog: {
         title: "",
         link: "",
         content: "",
-        author: this.user.name,
-        authorID: this.user.userID,
+        author: this.$store.state.user.name,
+        authorID: this.$store.state.user.userID,
         cat: "",
         postTime: new Date().toLocaleDateString("zh-Hans-TW")
       },

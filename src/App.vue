@@ -1,17 +1,8 @@
 <template>
   <div>
-    <appNav
-      v-bind:catlog="user.catlog"
-      v-bind:ifLogged="ifLogged"
-      v-on:changeCatlog="updateCatlog($event)"
-    ></appNav>
+    <appNav v-on:changeCatlog="updateCatlog($event)"></appNav>
     <div class="container">
-      <router-view v-bind:catlog="catlog"
-      v-bind:userCatlog="user.catlog"
-        v-bind:ifLogged="ifLogged"
-        v-on:login="updateLoginStatus($event)"
-        v-bind:user="user"
-      ></router-view>
+      <router-view v-bind:catlog="catlog"></router-view>
     </div>
   </div>
 </template>
@@ -25,16 +16,18 @@ export default {
   },
   data() {
     return {
-      user: {},
-      ifLogged: false,
       catlog: "all"
     };
   },
+  created() {
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      this.$store.dispatch("login", user);
+    } else {
+      return;
+    }
+  },
   methods: {
-    updateLoginStatus(value) {
-      this.ifLogged = true;
-      this.user = value;
-    },
     updateCatlog(value) {
       this.catlog = value;
     }

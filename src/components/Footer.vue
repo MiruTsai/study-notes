@@ -7,7 +7,7 @@
 export default {
     data(){
         return{
-            copyright:'copyright MiruTsai 2020'
+            copyright:"copyright MiruTsai 2020"
         }
     }
 }
