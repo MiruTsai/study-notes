@@ -104,18 +104,13 @@ export default {
             email: this.user.email,
             displayName: this.user.name,
             uid: firebase.auth().currentUser.uid,
-            catlog: [
-              { text: "JavaScript", value: "cat0" },
-              { text: "Frameworks", value: "cat1" },
-              { text: "UI / UX", value: "cat2" },
-              { text: "Third Party", value: "cat3" }
-            ]
+            catlog: []
           };
           this.$store.dispatch("login",obj)
           this.createMember(obj);
         })
         .then(()=>{
-          this.$router.push("/")
+          this.$router.push("/newuser");
         })
         .catch(function(error) {
           console.log(error.message);
@@ -164,11 +159,12 @@ export default {
         .then(doc => {
           if (doc.exists) {
             let info = doc.data();
-            this.$store.dispatch("login",info)
+            this.$store.dispatch("login",info);
+            this.$router.push("/")
           } else {            
-            this.createMember(user)
-          }
-          this.$router.push("/")
+            this.createMember(user);
+            this.$router.push("/newuser");
+          }          
         });
     },
     createMember(user) {

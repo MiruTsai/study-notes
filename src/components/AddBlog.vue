@@ -22,7 +22,12 @@
     <p v-show="submitted">文章已成功送出</p>
     <div id="preview">
       <h3>預覽</h3>
-      <link-prevue v-model="blog.preview" :url="blog.link" cardWidth="337px" :onButtonClick="onClick"></link-prevue>
+      <link-prevue
+        v-model="blog.preview"
+        :url="blog.link"
+        cardWidth="337px"
+        :onButtonClick="onClick"
+      ></link-prevue>
       <p v-show="!blog.link">標題 : {{blog.title}}</p>
       <p>筆記 : {{blog.content}}</p>
     </div>
@@ -41,7 +46,6 @@ export default {
   },
   data() {
     return {
-      userCatlog:this.$store.state.user.catlog,
       blog: {
         title: "",
         link: "",
@@ -79,6 +83,11 @@ export default {
     },
     findCatlogValue(value) {
       return this.userCatlog.findIndex(item => item.value === value);
+    }
+  },
+  computed: {
+    userCatlog() {
+      return this.$store.state.user.catlog;
     }
   }
 };

@@ -7,14 +7,14 @@ export const store = new Vuex.Store({
     state: {
         articles: [],
         user: {
-            name:"",
-            userID:"",
-            catlog:[],
-            login:false
+            name: "",
+            userID: "",
+            catlog: [],
+            login: false
         }
     },
     mutations: {
-        login(state, payload) {            
+        login(state, payload) {
             state.user.name = payload.name || payload.displayName;
             state.user.userID = payload.uid || payload.userID;
             state.user.catlog = payload.catlog;
@@ -41,6 +41,9 @@ export const store = new Vuex.Store({
         },
         clearArticles(state) {
             state.articles = [];
+        },
+        updateCatlogList(state, payload) {
+            state.user.catlog = payload
         }
     },
     actions: {
@@ -52,6 +55,9 @@ export const store = new Vuex.Store({
         },
         clearArticles: ({ commit }) => {
             commit("clearArticles")
+        },
+        updateCatlogList: ({ commit }, payload) => {
+            commit("updateCatlogList", payload)
         }
     }
 })
