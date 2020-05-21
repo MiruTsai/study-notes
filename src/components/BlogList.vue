@@ -4,7 +4,7 @@
       <b-card>
         <b-card-header>
           <router-link :to="'/blog/'+article.id">{{article.cat}}</router-link>
-          <span class="postTime">{{article.postTime}}</span>
+          <b-icon icon="trash" v-on:click="deleteBlog(article.id)"></b-icon>
         </b-card-header>
         <a :href="article.link">
           <link-prevue
@@ -15,7 +15,7 @@
           ></link-prevue>
         </a>
         <b-card-text class="noLink" v-show="!article.link">{{article.title}}</b-card-text>
-        <b-card-text>{{article.author}}</b-card-text>
+        <b-card-text>{{article.postTime}} {{article.author}}</b-card-text>
       </b-card>
     </template>
   </div>
@@ -46,6 +46,11 @@ export default {
       });
     }
   },
+  methods: {
+    deleteBlog(id) {
+      this.$store.dispatch("deleteBlog", id);
+    }
+  },
   mounted() {
     this.$store.dispatch("getArticles");
   },
@@ -64,6 +69,13 @@ a:hover {
 .article {
   margin: 20px auto;
   column-count: 3;
+}
+.article .bi-trash {
+  opacity: 0;
+}
+.article .bi-trash:hover {
+  transition: all 0.5s ease;
+  opacity: 1;
 }
 .article .card {
   margin: 10px;
@@ -85,8 +97,9 @@ a:hover {
   break-inside: avoid;
 }
 .article .card-text {
-  padding: 3px 5px;
+  padding: 5px 10px;
   text-align: right;
+  font-size: 12px;
 }
 .article .noLink {
   text-align: left;
@@ -105,6 +118,9 @@ a:hover {
   .article .card {
     width: 339px;
     margin: 10px 0;
+  }
+  .article .bi-trash {
+    opacity: 1;
   }
 }
 </style>

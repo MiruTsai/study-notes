@@ -44,6 +44,19 @@ export const store = new Vuex.Store({
         },
         updateCatlogList(state, payload) {
             state.user.catlog = payload
+        },
+        deleteBlog(state, payload) {
+            if (confirm("您確定刪除這篇貼文嗎？")) {
+                firebase.firestore().collection("articles").doc(payload).delete().then(function () {
+                    state.articles = state.articles.filter(article => {
+                        return article.id !== payload
+                    })
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
+            } else {
+                return;
+            }
         }
     },
     actions: {
@@ -58,6 +71,9 @@ export const store = new Vuex.Store({
         },
         updateCatlogList: ({ commit }, payload) => {
             commit("updateCatlogList", payload)
+        },
+        deleteBlog: ({ commit }, payload) => {
+            commit("deleteBlog", payload)
         }
     }
 })
